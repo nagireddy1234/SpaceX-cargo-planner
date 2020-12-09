@@ -1,5 +1,6 @@
 import React, { Suspense } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import {Helmet} from "react-helmet";
 import { ToastContainer } from 'react-toastify';
 import { MuiThemeProvider } from '@material-ui/core';
 import theme from './theme/theme';
@@ -15,6 +16,9 @@ export class App extends React.Component {
     render() {
         return (
             <React.Fragment>
+                <Helmet>
+                <title>SpaceX-cargo-planner</title>
+                </Helmet>
                 <MuiThemeProvider theme={theme}>
                     <ToastContainer closeButton={this.CloseButton} />
                     <Router>

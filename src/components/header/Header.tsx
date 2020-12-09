@@ -7,10 +7,11 @@ import SearchInput from '../inputs/SearchInput';
 const useStyles = makeStyles(({
     wrapper:{
         backgroundColor: colors.grayPrimary,
-        boxShadow: '0 0 10px -1px rgba(0,0,0, 0.2)',
+        // boxShadow: '0 0 10px -1px rgba(0,0,0, 0.2)',
         position: 'sticky',
         top: 0,
-        zIndex: 2
+        zIndex: 2,
+        borderBottom:"5px solid #000",
     },
     buttonShift:{
         marginRight: '1rem'
