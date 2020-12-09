@@ -9,12 +9,24 @@ const useStyles = makeStyles({
     },
     leftBox: {
         width: '15rem',
+        '@media (max-width:967px)':{
+           width:'12rem'
+        },
+        '@media (max-width:450px)':{
+           width:'7rem'
+        },
     },
     rightBox: {
         width: 'calc(100% - 15rem)',
         height: 'calc(100vh - 57px)',
         overflowY: 'auto',
-        marginTop: '12px'
+        marginTop: '12px',
+        '@media (max-width:967px)':{
+            width: 'calc(100% - 12rem)',
+         },
+         '@media (max-width:450px)':{
+            width: 'calc(100% - 7rem)',
+         },
     },
 });
 

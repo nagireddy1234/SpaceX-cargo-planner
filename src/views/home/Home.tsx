@@ -4,7 +4,7 @@ import Header from '../../components/header/Header';
 import MainContent from '../../components/mainContent/MainContent';
 import Sidebar from '../../components/sidebar/Sidebar';
 import { getAllshipmentRes } from '../../redux/actions/cargoBaysAction';
-import shipmentData from '../../data/shipmentData.json';
+const shipmentData = require('../../data/shipmentData.json') ;
 import { useDispatch, useSelector } from 'react-redux';
 import { rootReducerTypes } from '../../interfaces/reducerStateTypes/rootReducerTypes';
 import Content from './Content';
@@ -60,8 +60,9 @@ const Home = () => {
             }
             setFilterSearch(data);
         } else {
-            setFilterSearch(shipments);
-            setSearchNotFound(false);
+            if(shipments){
+            setFilterSearch( shipments);
+            setSearchNotFound(false);}
         }
     }, [search]);
 
