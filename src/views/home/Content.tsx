@@ -30,18 +30,18 @@ const useStyles = makeStyles({
     },
     notFound: {
         fontSize: '2rem',
-        textAlign: 'center'
-    }
+        textAlign: 'center',
+    },
 });
 
-const Content: FC<contentInterface> = ({isEmpty, data }) => {
+const Content: FC<contentInterface> = ({ isEmpty, notFound, data }) => {
     const classes = useStyles();
     const [cbValue, setCbValue] = useState('');
 
     useEffect(() => {
         if (data.boxes) {
             setCbValue(data.boxes);
-        }else{
+        } else {
             setCbValue('');
         }
     }, [data]);
@@ -67,26 +67,30 @@ const Content: FC<contentInterface> = ({isEmpty, data }) => {
 
     return (
         <Box className={classes.wrapper}>
-            {
-                !isEmpty ?
+            {!isEmpty && !notFound ? (
                 <React.Fragment>
-            <Typography className={classes.company}>{data.name}</Typography>
-            <Typography className={classes.email}>{data.email}</Typography>
-            <Typography className={classes.title}>
-                Number of required cargo bays {checkRequiredBays(cbValue)}
-            </Typography>
-            <TextField
-                variant="outlined"
-                label="Cargo Boxes"
-                className={classes.input}
-                value={cbValue}
-                onChange={handleCargoBox}
-            />
-            </React.Fragment>
-            :
-            <Typography className={classes.notFound}>No data found. please load the data by clicking on the load button!</Typography>
-        }
-
+                    <Typography className={classes.company}>{data.name}</Typography>
+                    <Typography className={classes.email}>{data.email}</Typography>
+                    <Typography className={classes.title}>
+                        Number of required cargo bays {checkRequiredBays(cbValue)}
+                    </Typography>
+                    <TextField
+                        variant="outlined"
+                        label="Cargo Boxes"
+                        className={classes.input}
+                        value={cbValue}
+                        onChange={handleCargoBox}
+                    />
+                </React.Fragment>
+            ) : notFound ? (
+                <Typography className={classes.notFound}>
+                    No data found.
+                </Typography>
+            ) : (
+                <Typography className={classes.notFound}>
+                    No data found. please load the data by clicking on the load button!
+                </Typography>
+            )}
         </Box>
     );
 };

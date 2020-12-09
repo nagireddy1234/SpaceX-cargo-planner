@@ -1,5 +1,6 @@
 import {  InputBase, makeStyles } from '@material-ui/core';
-import React from 'react';
+import React, { FC } from 'react';
+import { searchInterface } from '../../interfaces/componentInterface/searchInterface';
 import { colors } from '../../theme/colors';
 
 const useStyles = makeStyles(({
@@ -16,10 +17,10 @@ const useStyles = makeStyles(({
     }
 }))
 
-const SearchInput = () => {
+const SearchInput: FC<searchInterface> = ({...rest}) => {
     const classes = useStyles();
     return (
-        <InputBase className={classes.input} placeholder="Search" />
+        <InputBase className={classes.input}  placeholder="Search" {...rest} />
     );
 }
 

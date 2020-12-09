@@ -27,7 +27,7 @@ export class App extends React.Component {
                                 {/* {rootRoutes.map((item:any, i:number) => {
                                     return <Route key={i} exact path={item.name} component={item.component} />;
                                 })} */}
-                                <Route exact path="/" component={Home} />
+                                <Route path="/" component={Home} />
                             </Switch>
                         </Suspense>
                     </Router>

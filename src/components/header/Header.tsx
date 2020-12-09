@@ -19,7 +19,7 @@ const useStyles = makeStyles({
     },
 });
 
-const Header: FC<headerInterface> = ({ handleLoad, handleSave }) => {
+const Header: FC<headerInterface> = ({ handleLoad, handleSave, handleSearch, searchValue }) => {
     const classes = useStyles();
     return (
         <Grid container spacing={3} className={classes.wrapper}>
@@ -27,7 +27,7 @@ const Header: FC<headerInterface> = ({ handleLoad, handleSave }) => {
                 <Typography variant="h4">Cargo Planner</Typography>
             </Grid>
             <Grid item container alignItems="center" justify="center" md={6} sm={12}>
-                <SearchInput />
+                <SearchInput onChange={handleSearch} value={searchValue}  />
             </Grid>
             <Grid item md={3} sm={12} container alignItems="center" justify="flex-end">
                 <CustomButton externalClass={classes.buttonShift} onClick={handleLoad}>

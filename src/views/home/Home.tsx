@@ -1,5 +1,5 @@
 import { Box, makeStyles } from '@material-ui/core';
-import React, { useEffect, useState } from 'react';
+import React, { Dispatch, useEffect, useState } from 'react';
 import Header from '../../components/header/Header';
 import MainContent from '../../components/mainContent/MainContent';
 import Sidebar from '../../components/sidebar/Sidebar';
@@ -9,6 +9,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { rootReducerTypes } from '../../interfaces/reducerStateTypes/rootReducerTypes';
 import Content from './Content';
 import { saveData } from '../../helper/loadStateFromStorage';
+import { htmlInput } from '../../interfaces/inputInterface';
+import { shipmentInterfaceType } from '../../interfaces/responseDataInterface/shipmentInterface';
+import { useHistory } from 'react-router';
 
 const useStyles = makeStyles({
     wrapper: {
@@ -19,10 +22,14 @@ const useStyles = makeStyles({
 const Home = () => {
     const classes = useStyles();
     const dispatch = useDispatch();
+    const routes = useHistory();
+
     const shipments = useSelector((state: rootReducerTypes) => state.cargoBaysReducer.cargoBaysData);
     const [active, setActive] = useState(0);
     const [checkEmpty, setCheckEmpty] = useState(false);
-
+    const [search, setSearch] = useState('');
+    const [filterSeach, setFilterSearch] = useState<Array<shipmentInterfaceType>>([]);
+    const [searchNotFound, setSearchNotFound] = useState(false);
     const [showContent, setShowContent] = useState({ id: '', name: '', email: '', boxes: '' });
 
     const loadShipments = () => {
@@ -31,6 +38,7 @@ const Home = () => {
 
     useEffect(() => {
         if (shipments && active === 0) {
+            setFilterSearch(shipments);
             setShowContent(shipments[active]);
             setCheckEmpty(false);
         } else {
@@ -38,19 +46,41 @@ const Home = () => {
         }
     }, [shipments]);
 
+    useEffect(() => {
+        if (search !== '' && shipments) {
+            const data = shipments.filter((item: shipmentInterfaceType): any => {
+                if (item.name.toLocaleLowerCase().indexOf(search.toLocaleLowerCase()) > -1) {
+                    return item;
+                }
+            });
+            if (!data.length) {
+                setSearchNotFound(true);
+            }
+            setFilterSearch(data);
+        } else {
+            setFilterSearch(shipments);
+            setSearchNotFound(false);
+        }
+    }, [search]);
+
     const handleActive = (i: number) => {
         setActive(i);
-        if (shipments) {
-            setShowContent(shipments[i]);
+        routes.push(filterSeach[i].name.split(' ').join('-'))
+        if (filterSeach) {
+            setShowContent(filterSeach[i]);
         }
+    };
+
+    const handleSearch = (e: htmlInput) => {
+        setSearch(e.target.value);
     };
 
     return (
         <Box className={classes.wrapper}>
-            <Header handleSave={saveData} handleLoad={loadShipments} />
+            <Header handleSave={saveData} handleLoad={loadShipments} handleSearch={handleSearch} searchValue={search} />
             <MainContent
-                sidebar={<Sidebar active={active} data={shipments} onClick={handleActive} />}
-                mainConent={<Content isEmpty={checkEmpty} data={showContent} />}
+                sidebar={<Sidebar active={active} data={filterSeach} onClick={handleActive} />}
+                mainConent={<Content notFound={searchNotFound} isEmpty={checkEmpty} data={showContent} />}
             />
         </Box>
     );

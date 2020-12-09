@@ -2,5 +2,6 @@ import { shipmentInterfaceType } from '../responseDataInterface/shipmentInterfac
 
 export interface contentInterface {
     data: shipmentInterfaceType,
-    isEmpty: boolean
+    isEmpty: boolean,
+    notFound: boolean
 }
