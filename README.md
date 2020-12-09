@@ -1,4 +1,4 @@
-# SpaceX Cargo Planner test submitted by nagireddy
+# SpaceX Cargo Planner task submitted by nagireddy
 SpaceX is experiencing an increasing demand of shipments to Mars and has commissioned an application to automate the needed cargo space calculations.
 
 ### Installation
