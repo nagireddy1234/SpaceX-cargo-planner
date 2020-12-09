@@ -20,7 +20,7 @@ const useStyles = makeStyles({
         color: colors.primary,
         textTransform: 'capitalize',
         '&:hover': {
-            backgroundColor: colors.primary,
+            backgroundColor: colors.lightPrimary,
             color: colors.white,
         },
     },

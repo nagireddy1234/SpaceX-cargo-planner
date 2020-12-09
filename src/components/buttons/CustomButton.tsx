@@ -13,14 +13,16 @@ const useStyles = makeStyles({
         background: colors.primary,
         color: colors.white,
         "&:hover":{
-            backgroundColor: colors.primary
+            backgroundColor: colors.lightPrimary,
+            color:colors.white
         }
     },
     secondary: {
         backgroundColor: colors.black,
         color: colors.white,
         "&:hover":{
-            backgroundColor: colors.black
+            backgroundColor: colors.lightBlack,
+            color:colors.white
         }
 
     },

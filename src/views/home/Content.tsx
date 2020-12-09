@@ -2,6 +2,7 @@ import { Box, makeStyles, TextField, Typography } from '@material-ui/core';
 import React, { FC, useEffect, useState } from 'react';
 import { contentInterface } from '../../interfaces/componentInterface/contentInterface';
 import { colors } from '../../theme/colors';
+import Link from '@material-ui/core/Link';
 
 const useStyles = makeStyles({
     wrapper: {
@@ -70,7 +71,7 @@ const Content: FC<contentInterface> = ({ isEmpty, notFound, data }) => {
             {!isEmpty && !notFound ? (
                 <React.Fragment>
                     <Typography className={classes.company}>{data.name}</Typography>
-                    <Typography className={classes.email}>{data.email}</Typography>
+                    <Typography > <Link className={classes.email} underline="none" href={`mailto:${data.email}`} >{data.email}</Link></Typography>
                     <Typography className={classes.title}>
                         Number of required cargo bays {checkRequiredBays(cbValue)}
                     </Typography>

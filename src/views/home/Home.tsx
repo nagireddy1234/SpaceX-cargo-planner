@@ -4,7 +4,6 @@ import Header from '../../components/header/Header';
 import MainContent from '../../components/mainContent/MainContent';
 import Sidebar from '../../components/sidebar/Sidebar';
 import { getAllshipmentRes } from '../../redux/actions/cargoBaysAction';
-const shipmentData = require('../../data/shipmentData.json') ;
 import { useDispatch, useSelector } from 'react-redux';
 import { rootReducerTypes } from '../../interfaces/reducerStateTypes/rootReducerTypes';
 import Content from './Content';
@@ -12,6 +11,7 @@ import { saveData } from '../../helper/loadStateFromStorage';
 import { htmlInput } from '../../interfaces/inputInterface';
 import { shipmentInterfaceType } from '../../interfaces/responseDataInterface/shipmentInterface';
 import { useHistory } from 'react-router';
+const shipmentData = require('../../data/shipmentData.json') ;
 
 const useStyles = makeStyles({
     wrapper: {
