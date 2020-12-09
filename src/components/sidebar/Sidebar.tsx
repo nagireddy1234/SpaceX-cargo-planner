@@ -4,6 +4,7 @@ import { sidebarInterface } from '../../interfaces/componentInterface/sidebarInt
 import { shipmentInterfaceType } from '../../interfaces/responseDataInterface/shipmentInterface';
 import { colors } from '../../theme/colors';
 import classNames from 'classnames';
+import { v4 as uuidv4 } from 'uuid';
 
 const useStyles = makeStyles({
     wrapper: {
@@ -24,8 +25,8 @@ const useStyles = makeStyles({
         },
     },
     acitve: {
-       backgroundColor: colors.primary,
-       color: colors.white
+        backgroundColor: colors.primary,
+        color: colors.white,
     },
 });
 
@@ -35,7 +36,12 @@ const Sidebar: FC<sidebarInterface> = ({ data, onClick, active, ...rest }) => {
         <Box className={classes.wrapper}>
             {data &&
                 data.map((item: shipmentInterfaceType, i: number) => (
-                    <Button key={i} className={classNames(classes.title, active===i ? classes.acitve : '')} {...rest} onClick={() => onClick(i)}>
+                    <Button
+                        key={uuidv4()}
+                        className={classNames(classes.title, active === i ? classes.acitve : '')}
+                        {...rest}
+                        onClick={() => onClick(i)}
+                    >
                         {item.name}
                     </Button>
                 ))}

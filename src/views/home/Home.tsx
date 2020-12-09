@@ -1,5 +1,5 @@
 import { Box, makeStyles } from '@material-ui/core';
-import React, { Dispatch, useEffect, useState } from 'react';
+import React, {useEffect, useState } from 'react';
 import Header from '../../components/header/Header';
 import MainContent from '../../components/mainContent/MainContent';
 import Sidebar from '../../components/sidebar/Sidebar';

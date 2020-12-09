@@ -20,7 +20,6 @@ export const saveState = (state: any) => {
         localStorage.setItem('state', serializedState);
         toast.success("Data saved successfully.");
     } catch {
-        // ignore write errors
         toast.success("Failed to save data.");
         console.log('erro');
     }

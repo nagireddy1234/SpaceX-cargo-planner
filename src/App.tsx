@@ -1,12 +1,11 @@
 import React, { Suspense } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import {Helmet} from "react-helmet";
 import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import {Helmet} from "react-helmet";
 import { MuiThemeProvider } from '@material-ui/core';
 import theme from './theme/theme';
-// import { rootRoutes } from './routes/rootRoutes/rootRoutes';
-import 'react-toastify/dist/ReactToastify.css';
-import 'react-lazy-load-image-component/src/effects/blur.css';
+import Loader from './components/loader/Loader';
 const Home = React.lazy(() => import('./views/home/Home'));
 
 export class App extends React.Component {
@@ -16,18 +15,15 @@ export class App extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <Helmet>
+                 <Helmet>
                 <title>SpaceX-cargo-planner</title>
                 </Helmet>
                 <MuiThemeProvider theme={theme}>
                     <ToastContainer closeButton={this.CloseButton} />
                     <Router>
-                        <Suspense fallback={<div>Loading...</div>}>
+                        <Suspense fallback={<Loader/>}>
                             <Switch>
-                                {/* {rootRoutes.map((item:any, i:number) => {
-                                    return <Route key={i} exact path={item.name} component={item.component} />;
-                                })} */}
-                                <Route path="/" component={Home} />
+                                <Route  path="/" component={Home} />
                             </Switch>
                         </Suspense>
                     </Router>

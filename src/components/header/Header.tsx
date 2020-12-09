@@ -10,26 +10,46 @@ const useStyles = makeStyles({
         backgroundColor: colors.grayPrimary,
         boxShadow: '0 0 10px -1px rgba(0,0,0, 0.2)',
         position: 'sticky',
-        padding: '0 1rem',
+        padding: '0.5rem 1rem',
         top: 0,
         zIndex: 2,
+    },
+    HeaderStyles:{
+        '@media (max-width:967px)':{
+            display:'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+        },
     },
     buttonShift: {
         marginRight: '1rem',
     },
+    ResponsiveStyles:{
+        '@media (max-width:967px)':{
+            
+        },
+    },
+    buttonStyles:{
+        '@media (max-width:967px)':{
+            display:'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+        },
+    },
+   
 });
 
 const Header: FC<headerInterface> = ({ handleLoad, handleSave, handleSearch, searchValue }) => {
     const classes = useStyles();
     return (
         <Grid container spacing={3} className={classes.wrapper}>
-            <Grid item md={3} sm={12}>
+            <Grid item md={3} sm={12} xs={12} className={classes.HeaderStyles}>
                 <Typography variant="h4">Cargo Planner</Typography>
             </Grid>
-            <Grid item container alignItems="center" justify="center" md={6} sm={12}>
+            <Grid item container alignItems="center" justify="center" md={6}  sm={12} xs={12}>
                 <SearchInput onChange={handleSearch} value={searchValue}  />
             </Grid>
-            <Grid item md={3} sm={12} container alignItems="center" justify="flex-end">
+            <Grid item md={3}  sm={12} xs={12} container alignItems="center" justify="flex-end" className={classes.buttonStyles}>
                 <CustomButton externalClass={classes.buttonShift} onClick={handleLoad}>
                     Load
                 </CustomButton>

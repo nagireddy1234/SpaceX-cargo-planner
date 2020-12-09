@@ -53,8 +53,6 @@ module.exports = {
                 postcss: [autoprefixer()],
             },
         }),
-        // new BundleAnalyzerPlugin(),
-        // new webpack.optimize.ModuleConcatenationPlugin()
     ],
     devtool: 'cheap-module-source-map',
     optimization: {
