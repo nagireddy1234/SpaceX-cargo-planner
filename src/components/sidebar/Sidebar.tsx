@@ -1,30 +1,44 @@
-import { Box, makeStyles, Typography } from '@material-ui/core';
-import React from 'react';
+import { Box, Button, makeStyles } from '@material-ui/core';
+import React, { FC } from 'react';
+import { sidebarInterface } from '../../interfaces/componentInterface/sidebarInterface';
+import { shipmentInterfaceType } from '../../interfaces/responseDataInterface/shipmentInterface';
 import { colors } from '../../theme/colors';
+import classNames from 'classnames';
 
 const useStyles = makeStyles({
-    wrapper:{
+    wrapper: {
         backgroundColor: colors.lighterPrimary,
-        height: 'calc(100vh - 57px)'
+        height: 'calc(100vh - 69px)',
+        overflowY: 'auto',
     },
     title: {
-        color: colors.primary,
         padding: '0.5rem',
         cursor: 'pointer',
-        '&:hover':{
+        width: '100%',
+        borderRadius: 0,
+        color: colors.primary,
+        textTransform: 'capitalize',
+        '&:hover': {
             backgroundColor: colors.primary,
-            color: colors.white
-        }
+            color: colors.white,
+        },
+    },
+    acitve: {
+       backgroundColor: colors.primary,
+       color: colors.white
     },
 });
 
-const Sidebar = () => {
+const Sidebar: FC<sidebarInterface> = ({ data, onClick, active, ...rest }) => {
     const classes = useStyles();
     return (
         <Box className={classes.wrapper}>
-            {['company 1', 'company 2', 'company 3', 'company 4', 'company 5'].map((item: string) => (
-                <Typography className={classes.title}>{item}</Typography>
-            ))}
+            {data &&
+                data.map((item: shipmentInterfaceType, i: number) => (
+                    <Button key={i} className={classNames(classes.title, active===i ? classes.acitve : '')} {...rest} onClick={() => onClick(i)}>
+                        {item.name}
+                    </Button>
+                ))}
         </Box>
     );
 };

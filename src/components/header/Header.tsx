@@ -7,7 +7,10 @@ import SearchInput from '../inputs/SearchInput';
 const useStyles = makeStyles(({
     wrapper:{
         backgroundColor: colors.grayPrimary,
-        boxShadow: '0 0 10px -1px rgba(0,0,0, 0.2)'
+        boxShadow: '0 0 10px -1px rgba(0,0,0, 0.2)',
+        position: 'sticky',
+        top: 0,
+        zIndex: 2
     },
     buttonShift:{
         marginRight: '1rem'
@@ -18,7 +21,7 @@ const useStyles = makeStyles(({
 const Header = () => {
     const classes = useStyles();
     return (
-        <Grid container spacing={3} >
+        <Grid container spacing={3} className={classes.wrapper}>
             <Grid item md={3} sm={12}>
                 <Typography variant="h4">Cargo Planner</Typography>
             </Grid>

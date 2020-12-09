@@ -9,6 +9,7 @@ const useStyles = makeStyles(({
         borderRadius: '2rem',
         textAlign: 'center',
         padding: '0 1rem',
+        backgroundColor: colors.white,
         '& ::placeholder':{
             textAlign: 'center'
         }
