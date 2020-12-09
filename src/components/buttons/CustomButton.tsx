@@ -11,11 +11,17 @@ const useStyles = makeStyles({
     },
     primary: {
         background: colors.primary,
-        color: colors.white
+        color: colors.white,
+        "&:hover":{
+            backgroundColor: colors.primary
+        }
     },
     secondary: {
-        backgroundColor: colors.grayPrimary,
-        color: colors.black
+        backgroundColor: colors.black,
+        color: colors.white,
+        "&:hover":{
+            backgroundColor: colors.black
+        }
 
     },
 });

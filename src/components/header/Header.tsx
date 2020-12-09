@@ -1,25 +1,25 @@
-import {  Grid, makeStyles, Typography } from '@material-ui/core';
-import React from 'react';
+import { Grid, makeStyles, Typography } from '@material-ui/core';
+import React, { FC } from 'react';
+import { headerInterface } from '../../interfaces/componentInterface/headerInterface';
 import { colors } from '../../theme/colors';
 import CustomButton from '../buttons/CustomButton';
 import SearchInput from '../inputs/SearchInput';
 
-const useStyles = makeStyles(({
-    wrapper:{
+const useStyles = makeStyles({
+    wrapper: {
         backgroundColor: colors.grayPrimary,
-        // boxShadow: '0 0 10px -1px rgba(0,0,0, 0.2)',
+        boxShadow: '0 0 10px -1px rgba(0,0,0, 0.2)',
         position: 'sticky',
+        padding: '0 1rem',
         top: 0,
         zIndex: 2,
-        borderBottom:"5px solid #000",
     },
-    buttonShift:{
-        marginRight: '1rem'
-    }
-}))
+    buttonShift: {
+        marginRight: '1rem',
+    },
+});
 
-
-const Header = () => {
+const Header: FC<headerInterface> = ({ handleLoad, handleSave }) => {
     const classes = useStyles();
     return (
         <Grid container spacing={3} className={classes.wrapper}>
@@ -30,8 +30,12 @@ const Header = () => {
                 <SearchInput />
             </Grid>
             <Grid item md={3} sm={12} container alignItems="center" justify="flex-end">
-                <CustomButton externalClass={classes.buttonShift}>Load</CustomButton>
-                <CustomButton variant="secondary">Save</CustomButton>
+                <CustomButton externalClass={classes.buttonShift} onClick={handleLoad}>
+                    Load
+                </CustomButton>
+                <CustomButton variant="secondary" onClick={handleSave}>
+                    Save
+                </CustomButton>
             </Grid>
         </Grid>
     );

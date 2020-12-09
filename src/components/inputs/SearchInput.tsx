@@ -1,7 +1,6 @@
 import {  InputBase, makeStyles } from '@material-ui/core';
 import React from 'react';
 import { colors } from '../../theme/colors';
-// import SearchIcon from '@material-ui/icons/Search';
 
 const useStyles = makeStyles(({
     input:{
@@ -20,7 +19,6 @@ const useStyles = makeStyles(({
 const SearchInput = () => {
     const classes = useStyles();
     return (
-      
         <InputBase className={classes.input} placeholder="Search" />
     );
 }

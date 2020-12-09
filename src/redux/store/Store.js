@@ -12,11 +12,11 @@ const persistedState = loadState();
 const middleware = composeWithDevTools(applyMiddleware(thunkMiddleware, loggerMiddleware));
 const store = createStore(rootReducer, persistedState, middleware);
 
-store.subscribe(() => {
-    saveState({
-      cargoBaysReducer: store.getState().cargoBaysReducer
-    });
-  });
+// store.subscribe(() => {
+//     saveState({
+//       cargoBaysReducer: store.getState().cargoBaysReducer
+//     });
+//   });
 
 const dispatch = store.dispatch;
 

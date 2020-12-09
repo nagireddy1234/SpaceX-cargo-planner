@@ -1,12 +1,12 @@
 import { Box, makeStyles, TextField, Typography } from '@material-ui/core';
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { contentInterface } from '../../interfaces/componentInterface/contentInterface';
 import { colors } from '../../theme/colors';
 
 const useStyles = makeStyles({
     wrapper: {
         width: '100%',
-        padding: '2rem'
+        padding: '2rem',
     },
     company: {
         fontSize: '2rem',
@@ -24,20 +24,69 @@ const useStyles = makeStyles({
         color: colors.black,
         marginTop: '3rem',
     },
-    input:{
+    input: {
         marginTop: '1rem',
-        width: '50%'
+        width: '50%',
+    },
+    notFound: {
+        fontSize: '2rem',
+        textAlign: 'center'
     }
 });
 
-const Content: FC<contentInterface> = ({data}) => {
+const Content: FC<contentInterface> = ({isEmpty, data }) => {
     const classes = useStyles();
+    const [cbValue, setCbValue] = useState('');
+
+    useEffect(() => {
+        if (data.boxes) {
+            setCbValue(data.boxes);
+        }else{
+            setCbValue('');
+        }
+    }, [data]);
+
+    const checkRequiredBays = (boxes: string) => {
+        if (!['', NaN, null, undefined].includes(boxes)) {
+            const splitBox = boxes.split(',');
+            let cargoBays = 0;
+            splitBox.forEach((item: string) => {
+                cargoBays += +item;
+            });
+            let baysFind = cargoBays / 10;
+            let totalBays = Math.ceil(baysFind);
+            return totalBays;
+        } else {
+            return '';
+        }
+    };
+
+    const handleCargoBox = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setCbValue(e.target.value);
+    };
+
     return (
         <Box className={classes.wrapper}>
+            {
+                !isEmpty ?
+                <React.Fragment>
             <Typography className={classes.company}>{data.name}</Typography>
             <Typography className={classes.email}>{data.email}</Typography>
-            <Typography className={classes.title}>Number of required cargo bays </Typography>
-            <TextField variant="outlined" label="Cargo Boxes"  className={classes.input} value={data.boxes} />
+            <Typography className={classes.title}>
+                Number of required cargo bays {checkRequiredBays(cbValue)}
+            </Typography>
+            <TextField
+                variant="outlined"
+                label="Cargo Boxes"
+                className={classes.input}
+                value={cbValue}
+                onChange={handleCargoBox}
+            />
+            </React.Fragment>
+            :
+            <Typography className={classes.notFound}>No data found. please load the data by clicking on the load button!</Typography>
+        }
+
         </Box>
     );
 };
