@@ -8,9 +8,11 @@ const useStyles = makeStyles(({
         border: `1px solid ${colors.grayPrimary}`,
         width: '100%',
         borderRadius: '2rem',
-        textAlign: 'center',
         padding: '0 1rem',
         backgroundColor: colors.white,
+        '& .MuiInputBase-input':{
+            textAlign: 'center',
+        },
         '& ::placeholder':{
             textAlign: 'center'
         }

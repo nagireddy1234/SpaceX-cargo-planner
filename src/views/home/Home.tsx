@@ -33,7 +33,9 @@ const Home = () => {
     const [showContent, setShowContent] = useState({ id: '', name: '', email: '', boxes: '' });
 
     const loadShipments = () => {
-        dispatch(getAllshipmentRes(shipmentData));
+        if(!shipments){
+            dispatch(getAllshipmentRes(shipmentData));
+        }
     };
 
     useEffect(() => {
@@ -65,7 +67,7 @@ const Home = () => {
 
     const handleActive = (i: number) => {
         setActive(i);
-        routes.push(filterSeach[i].name.split(' ').join('-'))
+        routes.push(filterSeach[i].name.split(' ').join('-'));
         if (filterSeach) {
             setShowContent(filterSeach[i]);
         }
@@ -74,6 +76,7 @@ const Home = () => {
     const handleSearch = (e: htmlInput) => {
         setSearch(e.target.value);
     };
+
 
     return (
         <Box className={classes.wrapper}>
