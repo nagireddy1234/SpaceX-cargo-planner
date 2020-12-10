@@ -7,7 +7,7 @@ import { getAllshipmentRes } from '../../redux/actions/cargoBaysAction';
 import { useDispatch, useSelector } from 'react-redux';
 import { rootReducerTypes } from '../../interfaces/reducerStateTypes/rootReducerTypes';
 import Content from './Content';
-import { saveData } from '../../helper/loadStateFromStorage';
+import { getActive, saveActive, saveData } from '../../helper/loadStateFromStorage';
 import { htmlInput } from '../../interfaces/inputInterface';
 import { shipmentInterfaceType } from '../../interfaces/responseDataInterface/shipmentInterface';
 import { useHistory } from 'react-router';
@@ -25,7 +25,7 @@ const Home = () => {
     const routes = useHistory();
 
     const shipments = useSelector((state: rootReducerTypes) => state.cargoBaysReducer.cargoBaysData);
-    const [active, setActive] = useState(0);
+    const [active, setActive] = useState(getActive());
     const [checkEmpty, setCheckEmpty] = useState(false);
     const [search, setSearch] = useState('');
     const [filterSeach, setFilterSearch] = useState<Array<shipmentInterfaceType>>([]);
@@ -39,7 +39,7 @@ const Home = () => {
     };
 
     useEffect(() => {
-        if (shipments && active === 0) {
+        if (shipments) {
             setFilterSearch(shipments);
             setShowContent(shipments[active]);
             setCheckEmpty(false);
@@ -68,6 +68,7 @@ const Home = () => {
 
     const handleActive = (i: number) => {
         setActive(i);
+        saveActive(i);
         routes.push(filterSeach[i].name.split(' ').join('-'));
         if (filterSeach) {
             setShowContent(filterSeach[i]);

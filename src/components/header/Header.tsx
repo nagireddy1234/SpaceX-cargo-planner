@@ -5,11 +5,12 @@ import { colors } from '../../theme/colors';
 import CustomButton from '../buttons/CustomButton';
 import SearchInput from '../inputs/SearchInput';
 import Link from '@material-ui/core/Link';
+import { saveActive } from '../../helper/loadStateFromStorage';
 
 const useStyles = makeStyles({
     wrapper: {
         backgroundColor: colors.grayPrimary,
-        boxShadow: '0 0 10px -1px rgba(0,0,0, 0.2)',
+        // boxShadow: '0 0 10px -1px rgba(0,0,0, 0.2)',
         position: 'sticky',
         padding: '0.5rem 1rem',
         top: 0,
@@ -49,7 +50,7 @@ const Header: FC<headerInterface> = ({ handleLoad, handleSave, handleSearch, sea
     return (
         <Grid container spacing={3} className={classes.wrapper}>
             <Grid item md={3} sm={12} xs={12} className={classes.HeaderStyles}>
-                <Typography variant="h4"> <Link href="/" underline="none" className={classes.TitleStyles}>Cargo Planner</Link></Typography>
+                <Typography variant="h4" onClick={()=>saveActive(0)}> <Link href="/" underline="none" className={classes.TitleStyles}>Cargo Planner</Link></Typography>
             </Grid>
             <Grid item container alignItems="center" justify="center" md={6}  sm={12} xs={12}>
                 <SearchInput onChange={handleSearch} value={searchValue}  />
