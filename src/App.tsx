@@ -6,11 +6,12 @@ import {Helmet} from "react-helmet";
 import { MuiThemeProvider } from '@material-ui/core';
 import theme from './theme/theme';
 import Loader from './components/loader/Loader';
+import { Close } from '@material-ui/icons';
 const Home = React.lazy(() => import('./views/home/Home'));
 
 export class App extends React.Component {
     CloseButton = ({ closeToast }: { closeToast: any }) => (
-        <i style={{ color: '#000' }} className="icon-Close_Nav" onClick={closeToast} />
+        <Close style={{ color: '#000' }}  onClick={closeToast} />
     );
     render() {
         return (

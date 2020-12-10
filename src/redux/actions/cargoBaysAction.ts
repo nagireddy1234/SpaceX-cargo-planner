@@ -9,3 +9,4 @@ export const getAllshipmentRes = (shipmentData: Array<shipmentInterfaceType>): s
         payload: shipmentData,
     };
 };
+

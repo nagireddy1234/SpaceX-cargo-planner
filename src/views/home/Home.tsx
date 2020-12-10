@@ -84,7 +84,7 @@ const Home = () => {
             <Header handleSave={saveData} handleLoad={loadShipments} handleSearch={handleSearch} searchValue={search} />
             <MainContent
                 sidebar={<Sidebar active={active} data={filterSeach} onClick={handleActive} />}
-                mainConent={<Content notFound={searchNotFound} isEmpty={checkEmpty} data={showContent} />}
+                mainConent={<Content shipmentData={shipments} notFound={searchNotFound} isEmpty={checkEmpty} data={showContent} />}
             />
         </Box>
     );

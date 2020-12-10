@@ -3,6 +3,9 @@ import React, { FC, useEffect, useState } from 'react';
 import { contentInterface } from '../../interfaces/componentInterface/contentInterface';
 import { colors } from '../../theme/colors';
 import Link from '@material-ui/core/Link';
+import { shipmentInterfaceType } from '../../interfaces/responseDataInterface/shipmentInterface';
+import { useDispatch } from 'react-redux';
+import { getAllshipmentRes } from '../../redux/actions/cargoBaysAction';
 
 const useStyles = makeStyles({
     wrapper: {
@@ -35,8 +38,9 @@ const useStyles = makeStyles({
     },
 });
 
-const Content: FC<contentInterface> = ({ isEmpty, notFound, data }) => {
+const Content: FC<contentInterface> = ({ isEmpty, notFound, shipmentData, data }) => {
     const classes = useStyles();
+    const dispatch = useDispatch();
     const [cbValue, setCbValue] = useState('');
 
     useEffect(() => {
@@ -66,12 +70,33 @@ const Content: FC<contentInterface> = ({ isEmpty, notFound, data }) => {
         setCbValue(e.target.value);
     };
 
+    const saveChange = () => {
+        if (data.boxes !== cbValue && shipmentData) {
+            const result = shipmentData.map((item: shipmentInterfaceType) => {
+                if (item.id === data.id) {
+                    return {
+                        ...item,
+                        boxes: cbValue,
+                    };
+                } else {
+                    return item;
+                }
+            });
+            dispatch(getAllshipmentRes(result))
+        }
+    };
+
     return (
         <Box className={classes.wrapper}>
             {!isEmpty && !notFound ? (
                 <React.Fragment>
                     <Typography className={classes.company}>{data.name}</Typography>
-                    <Typography > <Link className={classes.email} underline="none" href={`mailto:${data.email}`} >{data.email}</Link></Typography>
+                    <Typography>
+                        {' '}
+                        <Link className={classes.email} underline="none" href={`mailto:${data.email}`}>
+                            {data.email}
+                        </Link>
+                    </Typography>
                     <Typography className={classes.title}>
                         Number of required cargo bays {checkRequiredBays(cbValue)}
                     </Typography>
@@ -81,12 +106,11 @@ const Content: FC<contentInterface> = ({ isEmpty, notFound, data }) => {
                         className={classes.input}
                         value={cbValue}
                         onChange={handleCargoBox}
+                        onBlur={saveChange}
                     />
                 </React.Fragment>
             ) : notFound ? (
-                <Typography className={classes.notFound}>
-                    No data found.
-                </Typography>
+                <Typography className={classes.notFound}>No data found.</Typography>
             ) : (
                 <Typography className={classes.notFound}>
                     No data found. please load the data by clicking on the load button!

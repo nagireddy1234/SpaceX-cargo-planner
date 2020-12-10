@@ -3,5 +3,6 @@ import { shipmentInterfaceType } from '../responseDataInterface/shipmentInterfac
 export interface contentInterface {
     data: shipmentInterfaceType,
     isEmpty: boolean,
-    notFound: boolean
+    notFound: boolean,
+    shipmentData: null | Array<shipmentInterfaceType>
 }
