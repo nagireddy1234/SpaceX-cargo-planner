@@ -6,6 +6,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { loadState } from '../../helper/loadStateFromStorage';
 
 const loggerMiddleware = createLogger();
+console.log(loggerMiddleware)
 
 const persistedState = loadState();
 

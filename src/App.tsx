@@ -24,7 +24,7 @@ export class App extends React.Component {
                         <Suspense fallback={<Loader />}>
                             <Switch>
                                 {rootRoutes.map((item: rootRouteInterface, i: number) => (
-                                    <Route key={i} path={item.path} component={item.component} />
+                                    <Route key={i} exact path={item.path} component={item.component} />
                                 ))}
                             </Switch>
                         </Suspense>
@@ -36,3 +36,7 @@ export class App extends React.Component {
 }
 
 export default App;
+
+
+
+

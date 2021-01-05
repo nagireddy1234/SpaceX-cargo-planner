@@ -1,5 +1,5 @@
 import { Grid, makeStyles, Typography } from '@material-ui/core';
-import React, { FC } from 'react';
+import React, { FC, memo } from 'react';
 import { headerInterface } from '../../interfaces/componentInterface/headerInterface';
 import { colors } from '../../theme/colors';
 import CustomButton from '../buttons/CustomButton';
@@ -32,7 +32,6 @@ const useStyles = makeStyles({
     },
     ResponsiveStyles:{
         '@media (max-width:967px)':{
-            
         },
     },
     buttonStyles:{
@@ -41,9 +40,9 @@ const useStyles = makeStyles({
             alignItems: 'center',
             justifyContent: 'center',
         },
-    },
-   
+    }
 });
+
 
 const Header: FC<headerInterface> = ({ handleLoad, handleSave, handleSearch, searchValue }) => {
     const classes = useStyles();
@@ -67,4 +66,4 @@ const Header: FC<headerInterface> = ({ handleLoad, handleSave, handleSearch, sea
     );
 };
 
-export default Header;
+export default memo(Header);

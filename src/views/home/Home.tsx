@@ -1,9 +1,10 @@
 import { Box, makeStyles } from '@material-ui/core';
-import React, {useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import Header from '../../components/header/Header';
 import MainContent from '../../components/mainContent/MainContent';
 import Sidebar from '../../components/sidebar/Sidebar';
-import { getAllshipmentRes } from '../../redux/actions/cargoBaysAction';
+import { getAllShipmentDataAPIcall } from '../../redux/actions/cargoBaysAction';
 import { useDispatch, useSelector } from 'react-redux';
 import { rootReducerTypes } from '../../interfaces/reducerStateTypes/rootReducerTypes';
 import Content from './Content';
@@ -11,7 +12,6 @@ import { getActive, saveActive, saveData } from '../../helper/loadStateFromStora
 import { htmlInput } from '../../interfaces/inputInterface';
 import { shipmentInterfaceType } from '../../interfaces/responseDataInterface/shipmentInterface';
 import { useHistory } from 'react-router';
-const shipmentData = require('../../data/shipmentData.json') ;
 
 const useStyles = makeStyles({
     wrapper: {
@@ -33,9 +33,9 @@ const Home = () => {
     const [showContent, setShowContent] = useState({ id: '', name: '', email: '', boxes: '' });
 
     const loadShipments = () => {
-        if(!shipments){
-            dispatch(getAllshipmentRes(shipmentData));
-        }
+        dispatch(getAllShipmentDataAPIcall());
+            dispatch(getAllShipmentDataAPIcall());
+          toast.success('Load button overwritten successfully');
     };
 
     useEffect(() => {
@@ -50,19 +50,26 @@ const Home = () => {
 
     useEffect(() => {
         if (search !== '' && shipments) {
-            const data = shipments.filter((item: shipmentInterfaceType): any => {
-                if (item.name.toLocaleLowerCase().indexOf(search.toLocaleLowerCase()) > -1) {
-                    return item;
+            setTimeout(() => {
+                const data = shipments.filter((item: shipmentInterfaceType): any => {
+                    if (item.name.toLocaleLowerCase().indexOf(search.toLocaleLowerCase()) > -1) {
+                        return item;
+                    }
+                });
+                if (!data.length) {
+                    setSearchNotFound(true);
+                } else {
+                    setCheckEmpty(false);
+                    setSearchNotFound(false);
                 }
-            });
-            if (!data.length) {
-                setSearchNotFound(true);
-            }
-            setFilterSearch(data);
+                setFilterSearch(data);
+            }, 1000);
         } else {
-            if(shipments){
-            setFilterSearch( shipments);
-            setSearchNotFound(false);}
+            if (shipments) {
+                setCheckEmpty(false);
+                setFilterSearch(shipments);
+                setSearchNotFound(false);
+            }
         }
     }, [search]);
 
@@ -79,16 +86,26 @@ const Home = () => {
         setSearch(e.target.value);
     };
 
-
     return (
         <Box className={classes.wrapper}>
             <Header handleSave={saveData} handleLoad={loadShipments} handleSearch={handleSearch} searchValue={search} />
             <MainContent
                 sidebar={<Sidebar active={active} data={filterSeach} onClick={handleActive} />}
-                mainConent={<Content shipmentData={shipments} notFound={searchNotFound} isEmpty={checkEmpty} data={showContent} />}
+                mainConent={
+                    <Content
+                        shipmentData={shipments}
+                        notFound={searchNotFound}
+                        isEmpty={checkEmpty}
+                        data={showContent}
+                    />
+                }
             />
         </Box>
     );
 };
 
 export default Home;
+
+
+
+

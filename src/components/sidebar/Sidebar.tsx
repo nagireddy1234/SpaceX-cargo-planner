@@ -1,5 +1,5 @@
 import { Box, Button, makeStyles } from '@material-ui/core';
-import React, { FC } from 'react';
+import React, { FC, memo } from 'react';
 import { sidebarInterface } from '../../interfaces/componentInterface/sidebarInterface';
 import { shipmentInterfaceType } from '../../interfaces/responseDataInterface/shipmentInterface';
 import { colors } from '../../theme/colors';
@@ -30,7 +30,8 @@ const useStyles = makeStyles({
     },
 });
 
-const Sidebar: FC<sidebarInterface> = ({ data, onClick, active, ...rest }) => {
+
+const Sidebar: FC<sidebarInterface> = ({ data, onClick, active, ...props }) => {
     const classes = useStyles();
     return (
         <Box className={classes.wrapper}>
@@ -39,7 +40,7 @@ const Sidebar: FC<sidebarInterface> = ({ data, onClick, active, ...rest }) => {
                     <Button
                         key={uuidv4()}
                         className={classNames(classes.title, active === i ? classes.acitve : '')}
-                        {...rest}
+                        {...props}
                         onClick={() => onClick(i)}
                     >
                         {item.name}
@@ -49,4 +50,4 @@ const Sidebar: FC<sidebarInterface> = ({ data, onClick, active, ...rest }) => {
     );
 };
 
-export default Sidebar;
+export default memo(Sidebar);

@@ -14,6 +14,7 @@ module.exports = {
     devServer: {
         historyApiFallback: true,
         disableHostCheck: true,
+        
     },
     resolve: {
         extensions: ['.js', '.jsx', '.ts', '.tsx'],

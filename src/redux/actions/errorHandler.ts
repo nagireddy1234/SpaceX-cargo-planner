@@ -12,3 +12,5 @@ export const handleError = (dispatch: Dispatch<any>, err: any) => {
         toast.error('Something Went Wrong!');
     }
 };
+
+

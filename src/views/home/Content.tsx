@@ -1,5 +1,5 @@
 import { Box, makeStyles, TextField, Typography } from '@material-ui/core';
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, memo, useEffect, useState } from 'react';
 import { contentInterface } from '../../interfaces/componentInterface/contentInterface';
 import { colors } from '../../theme/colors';
 import Link from '@material-ui/core/Link';
@@ -52,22 +52,36 @@ const Content: FC<contentInterface> = ({ isEmpty, notFound, shipmentData, data }
     }, [data]);
 
     const checkRequiredBays = (boxes: string) => {
-        if (!['', NaN, null, undefined].includes(boxes)) {
+        if (!['', null, undefined].includes(boxes)) {
             const splitBox = boxes.split(',');
             let cargoBays = 0;
             splitBox.forEach((item: string) => {
                 cargoBays += +item;
             });
+
             let baysFind = cargoBays / 10;
             let totalBays = Math.ceil(baysFind);
-            return totalBays;
+            if (isNaN(cargoBays)) {
+                return '';
+            } else {
+                return totalBays;
+            }
         } else {
             return '';
         }
     };
 
     const handleCargoBox = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setCbValue(e.target.value);
+        if (!['', null, undefined].includes(e.target.value)) {
+            const splitBox = e.target.value.split(',');
+            let cargoBays = 0;
+            splitBox.forEach((item: string) => {
+                cargoBays += +item;
+            });
+            if (!isNaN(cargoBays)) {
+                setCbValue(e.target.value);
+            } 
+        }
     };
 
     const saveChange = () => {
@@ -82,7 +96,7 @@ const Content: FC<contentInterface> = ({ isEmpty, notFound, shipmentData, data }
                     return item;
                 }
             });
-            dispatch(getAllshipmentRes(result))
+            dispatch(getAllshipmentRes(result));
         }
     };
 
@@ -120,4 +134,4 @@ const Content: FC<contentInterface> = ({ isEmpty, notFound, shipmentData, data }
     );
 };
 
-export default Content;
+export default memo(Content);
