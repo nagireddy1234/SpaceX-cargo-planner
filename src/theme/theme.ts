@@ -7,7 +7,7 @@ const theme = createMuiTheme({
     overrides: {
         MuiCircularProgress: {
             colorPrimary: {
-                color: '#000',
+                color: 'black',
             },
         },
     },
